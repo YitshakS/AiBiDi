@@ -1,0 +1,198 @@
+/*
+ * AiBiDi - Styles
+ * MIT License
+ * https://github.com/your-repo/rtl-terminal
+ */
+
+@font-face {
+    font-family: 'Cascadia Mono';
+    src: url('fonts/CascadiaMono.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1e1e1e;
+    font-family: 'Cascadia Mono', 'Consolas', 'DejaVu Sans Mono', monospace;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+/* Toolbar */
+#toolbar {
+    display: flex;
+    direction: rtl;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.3s ease;
+    align-items: center;
+}
+
+/* Controls */
+#controls-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Logo */
+#logo-container {
+    display: flex;
+    direction: ltr;
+    align-items: center;
+    gap: 8px;
+}
+
+#logo {
+    height: 28px;
+    width: auto;
+}
+
+#logo-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00FF00;
+    letter-spacing: 1px;
+}
+
+#toolbar button,
+#toolbar select {
+    padding: 5px 15px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #3d3d3d;
+    color: #ccc;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+    background-color: #4d4d4d;
+}
+
+#toolbar button.active {
+    background-color: #0078d4;
+    border-color: #0078d4;
+    color: white;
+}
+
+#toolbar select {
+    min-width: 140px;
+}
+
+#toolbar select:focus {
+    outline: none;
+    border-color: #0078d4;
+}
+
+/* Light theme toolbar */
+body.light-toolbar #toolbar {
+    background-color: #f0f0f0;
+    border-bottom-color: #ccc;
+}
+
+body.light-toolbar #toolbar button,
+body.light-toolbar #toolbar select {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+    color: #333;
+}
+
+body.light-toolbar #toolbar button:hover,
+body.light-toolbar #toolbar select:hover {
+    background-color: #d0d0d0;
+}
+
+body.light-toolbar #toolbar button.active {
+    background-color: #0078d4;
+    border-color: #0078d4;
+    color: white;
+}
+
+body.light-toolbar #logo-text {
+    color: #008800;
+}
+
+#terminal-container {
+    width: 100%;
+    height: calc(100% - 50px);
+    padding: 10px;
+}
+
+#terminal {
+    width: 100%;
+    height: 100%;
+}
+
+/* RTL/BiDi Support - applied when .rtl-mode is on body */
+body.rtl-mode .xterm-rows {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+body.rtl-mode .xterm-rows > div {
+    direction: rtl;
+}
+
+/* Keep spans in LTR but allow RTL positioning from parent */
+body.rtl-mode .xterm-rows span {
+    unicode-bidi: embed;
+}
+
+/* Drop zone for images */
+#drop-zone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 100, 200, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#drop-zone.hidden {
+    display: none;
+}
+
+#drop-message {
+    color: white;
+    font-size: 2em;
+    padding: 20px 40px;
+    border: 3px dashed white;
+    border-radius: 10px;
+}
+
+/* Scrollbar styling */
+.xterm-viewport::-webkit-scrollbar {
+    width: 10px;
+}
+
+.xterm-viewport::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
