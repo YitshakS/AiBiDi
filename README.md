@@ -2,6 +2,8 @@
 
 AiBiDi (or CliBiDi) is a browser-based terminal with native BiDi (Bidirectional Text) support for RTL (Right-to-Left) languages. Now you can interact with AI via CLI in your natural language: Hebrew, Arabic, Dhivehi, Kurdish, Pashto, Persian, Sindhi, Urdu, Uyghur, Yiddish.
 
+![AiBiDi Terminal Screenshot](.github/images/AiBiDi.png)
+
 ## Features
 
 - ✅ **BiDi & RTL Languages Support** - Hebrew, Arabic, Dhivehi, Kurdish, Pashto, Persian, Sindhi, Urdu, Uyghur, Yiddish
