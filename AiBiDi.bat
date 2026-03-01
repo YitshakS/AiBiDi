@@ -25,7 +25,7 @@ set PORT=
 if exist "%PORT_FILE%" (
     set /p PORT=<"%PORT_FILE%"
     REM Test if port is actually listening
-    powershell -Command "try { $null = Test-NetConnection -ComputerName localhost -Port !PORT! -InformationLevel Quiet -WarningAction SilentlyContinue -ErrorAction Stop; exit 0 } catch { exit 1 }" >nul 2>&1
+    powershell -Command "if (Test-NetConnection -ComputerName localhost -Port !PORT! -InformationLevel Quiet -WarningAction SilentlyContinue) { exit 0 } else { exit 1 }" >nul 2>&1
     if !errorlevel! equ 0 (
         set SERVER_RUNNING=1
         echo Server already running on port !PORT!

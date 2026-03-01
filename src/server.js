@@ -44,7 +44,7 @@ if (fs.existsSync(TMP_DIR)) {
 }
 fs.mkdirSync(TEMP_DIR, { recursive: true });
 
-// 2. Runtime cleanup - queue-based deletion (exactly 60 seconds after upload)
+// 2. Runtime cleanup - independent timer per file (exactly 60 seconds after upload)
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
