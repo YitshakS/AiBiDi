@@ -2,13 +2,37 @@
 cd "$(dirname "$0")"
 
 if ! command -v node &> /dev/null; then
-    echo "Node.js is missing and is required to run AiBiDi."
-    exit 1
+    while true; do
+        read -p "Node.js is missing and required to run AiBiDi. Install it now? (y/n): " INSTALL_NODE
+        if [[ "${INSTALL_NODE,,}" == "y" ]]; then
+            break
+        elif [[ "${INSTALL_NODE,,}" == "n" ]]; then
+            echo "Node.js is required to run AiBiDi. Exiting."
+            exit 1
+        fi
+    done
+    echo "Installing Node.js..."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install node
+    elif [[ -f /etc/debian_version ]]; then
+        sudo apt-get update && sudo apt-get install -y nodejs npm
+    elif [[ -f /etc/redhat-release ]]; then
+        sudo dnf install -y nodejs
+    else
+        echo "Unsupported system. Please install Node.js manually from https://nodejs.org"
+        exit 1
+    fi
+    if ! command -v node &> /dev/null; then
+        echo "Installation failed. Please install Node.js manually from https://nodejs.org"
+        exit 1
+    fi
+    echo "Node.js installed successfully."
 fi
 
 if [ ! -d "node_modules" ]; then
     echo "Installing dependencies..."
     npm install
+    echo ""
 fi
 
 PORT_FILE="tmp/.port"
@@ -27,7 +51,8 @@ fi
 if [ $SERVER_RUNNING -eq 0 ]; then
     # Start new server
     echo "Starting AiBiDi server..."
-    node src/server.js --auto-shutdown &
+    nohup node src/server.js --auto-shutdown &
+    disown
 
     # Wait for port file to be created (max 5 seconds)
     counter=0
@@ -46,6 +71,7 @@ if [ $SERVER_RUNNING -eq 0 ]; then
 fi
 
 # Open browser
+echo "Opening browser at http://localhost:$PORT"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     open "http://localhost:$PORT"
 else
